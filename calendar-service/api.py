@@ -27,22 +27,13 @@ def _from_raw(raw_event: str) -> model.Event:
         event.title = parts[1]
         event.text = parts[2]
         return event
-    elif len(parts) == 4:
-        part_date = parts[1].split(',')
-        event.id = parts[0]
-        event.date = date(int(part_date[0]), int(part_date[1]), int(part_date[2]))
-        event.title = parts[2]
-        event.text = parts[3]
-        return event
     else:
         raise ApiException(f"invalid RAW event data {raw_event}")
 
 
 def _to_raw(event: model.Event) -> str:
-    if event.id is None:
-        return f"{event.date}|{event.title}|{event.text}"
-    else:
-        return f"{event.id}|{event.date}|{event.title}|{event.text}"
+    return f"{event.date}|{event.title}|{event.text}"
+
 
 @app.route(CALENDAR_API_ROOT + "/", methods=["POST"])
 def create():
