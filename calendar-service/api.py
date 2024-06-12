@@ -21,7 +21,7 @@ def _from_raw(raw_event: str) -> model.Event:
     parts = raw_event.split('|')
     event = model.Event()
     if len(parts) == 3:
-        part_date = parts[0].split(',')
+        part_date = parts[0].split('-')
         event.id = None
         event.date = date(int(part_date[0]), int(part_date[1]), int(part_date[2]))
         event.title = parts[1]
