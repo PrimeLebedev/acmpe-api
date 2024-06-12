@@ -1,3 +1,4 @@
+import datetime
 from typing import List
 
 import model
@@ -11,6 +12,9 @@ class LocalStorage:
         self._storage = {}
 
     def create(self, event: model.Event) -> str:
+        for stored_event in self._storage.values():
+            if stored_event.date == event.date:
+                raise StorageException(f"The event has already been added on the {event.date} date in storage")
         self._id_counter += 1
         event.id = str(self._id_counter)
         self._storage[event.id] = event
@@ -20,7 +24,7 @@ class LocalStorage:
         return list(self._storage.values())
 
     def read(self, _id: str) -> model.Event:
-        if _id not in self._storage:
+        if _id in self._storage:
             raise StorageException(f"{_id} not found in storage")
         return self._storage[_id]
 
