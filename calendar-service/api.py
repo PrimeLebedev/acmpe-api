@@ -34,7 +34,6 @@ def _from_raw(raw_event: str) -> model.Event:
 def _to_raw(event: model.Event) -> str:
     return f"{event.id}|{event.date}|{event.title}|{event.text}"
 
-
 @app.route(CALENDAR_API_ROOT + "/", methods=["POST"])
 def create():
     try:

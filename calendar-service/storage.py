@@ -23,7 +23,7 @@ class LocalStorage:
         return list(self._storage.values())
 
     def read(self, _id: str) -> model.Event:
-        if _id in self._storage:
+        if _id not in self._storage:
             raise StorageException(f"{_id} not found in storage")
         return self._storage[_id]
 
